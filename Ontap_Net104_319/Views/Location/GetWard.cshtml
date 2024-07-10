@@ -1,0 +1,20 @@
+﻿@using Newtonsoft.Json.Linq
+@model JObject
+@* <select asp-for="ProvinceID" class="form-control">
+
+</select> *@
+
+<h2>Chọn Phường, Xã</h2>
+<form asp-action="Total" method="post">
+    <div class="form-group">
+        <label for="provinceSelect">Phường, Xã:</label>
+        <select class="form-control" id="provinceSelect" name="id">
+            <option value="">-- Chọn Phường, Xã --</option>
+            @foreach (var item in Model["data"])
+            {
+                <option value="@item["WardCode"]">@item["WardName"]</option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-success mt-3" type="submit">Gửi</button>
+</form>

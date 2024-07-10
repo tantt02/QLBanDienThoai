@@ -1,0 +1,105 @@
+﻿@inject AppDbContext context
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Ontap_Net104_319</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/favicon.ico" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Ontap_Net104_319.styles.css" asp-append-version="true" />
+	@RenderSection("Styles", required: false)
+</head>
+<body>
+    <header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3  ">
+            <div class="container">
+				<div class="navbar-brand d-flex align-items-center">
+					<a asp-area="" asp-controller="Home" asp-action="List" style="text-decoration: none; color:black; font-size: 1.5rem  ">Apple Store </a>
+					<img src="~/imgs/apple-logo-6.png" width="40px" height="40px" alt="Alternate Text" />
+				</div>
+               
+                @* <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button> *@
+				@{
+					var username = ViewContext.HttpContext.Session.GetString("username");
+					var a = context.Accounts.FirstOrDefault(c => c.Username == username);
+					if (!string.IsNullOrEmpty(username))
+					{
+						if (a != null)
+						{
+							<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+								<ul class="navbar-nav flex-grow-1">
+									<li class="nav-item">
+
+										<a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index"><img src="~/imgs/smartphone.png" alt="Alternate Text" />Sản phẩm</a>
+									</li>
+									<li class="nav-item">
+										<form asp-action="Index" asp-controller="Home" method="get" class="d-flex" role="search">
+											<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
+											<button class="btn btn-outline-secondary" type="submit">Search</button>
+										</form>
+									</li>
+									
+									<li class="nav-item">
+
+										<a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Giỏ hàng</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Bill" asp-action="Index">Xem hóa đơn</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut"><img src="~/imgs/user.png" alt="Alternate Text" />Thoát tài khoản</a>
+									</li>
+								</ul>
+							</div>
+						}
+					}
+					else
+					{
+						<div class="navbar-collapse collapse d-sm-inline-flex ">
+							<ul class="navbar-nav flex-grow-1">
+								<li class="nav-item ps-2 pe-4">
+
+									<a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index"><img src="~/imgs/smartphone.png" alt="Alternate Text" />Sản phẩm</a>
+								</li>
+								<li class="nav-item ps-5">
+									<form asp-action="Index" asp-controller="Home" method="get" class="d-flex" role="search">
+										<input style="width:400px;" class="form-control" type="search" name="name" placeholder="Search" aria-label="Search">
+										<button class="btn btn-outline-secondary" type="submit">Search</button>
+									</form>
+								</li>
+								<li class="nav-item ps-5">
+
+									<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login"><img src="~/imgs/user.png" alt="Alternate Text" /> Đăng nhập</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="SignUp">Đăng ký</a>
+								</li>
+							</ul>
+						</div>
+					}
+				}
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Ontap_Net104_319 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,52 @@
+﻿@model Ontap_Net104_319.Models.Product
+@inject AppDbContext db
+@{
+	ViewData["Title"] = "Watch";
+}
+
+@using (Html.BeginForm("AddToCart", "Product", FormMethod.Post))
+{
+	@Html.Hidden("id", @Html.DisplayFor(model => model.Id))
+	<div class="row">
+		<div class="col d-flex  m-2 justify-content-center align-items-center w-100 overflow-hidden">
+			<img src="~/imgs/iphone-15-pro-max-titanxanh.jpg" class="w-100" />
+		</div>
+		<div class="col">
+			<h4><b>@Html.DisplayFor(model => model.Name)</b></h4>
+			<h5 class="mt-2"><b>Số lượng còn:@Html.DisplayFor(model => model.Amount)</b></h5>
+			@* <h5 class="mt-2"><b>@Convert.ToDouble(Model.Price).ToString("N0")</b>đ</h5> *@
+
+			<form asp-controller="Product" asp-action="AddtoCart" class="mt-3">
+				<input type="hidden" name="idProduct" value="@Html.DisplayFor(model => model.Id)" />
+				<div class="form-group row">
+					<label for="quantity" class="col-sm-2 col-form-label">Số lượng:</label>
+					<div class="col-sm-10">
+						<input id="quantity" required class="form-control" type="number" value="1" min="1" max="@Html.DisplayFor(model => model.Amount)" name="quantity" aria-label="Số lượng" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-10 offset-sm-2">
+						<button type="submit" class="btn btn-primary">Thêm vào giỏ</button>
+					</div>
+				</div>
+			</form>
+
+			<br>
+			<hr>
+			<p>This is a demonstration store. You can purchase products like this from Leica Store Miami.
+			<p>
+				• S-System Kit
+			<p>
+				• Details
+			</p>
+			<p>
+				• S Specs
+			</p>
+			<p>
+				• Lens Specs
+			</p>
+			The Leica S (Typ 006) + Leica Summarit-S 70mm f/2.5 ASPH kit combines Leica's top- of-the-line medium format digital camera body with one of the most versatile lenses in the Leica S-System. The Leica S (Typ 006) is a 37.5 megapixel medium format digital SLR that merges superb image quality with a fully weather and dust sealed body designed from scratch to be ergonomic and straightforward to use. This kit will allow you to immediately begin your photographic adventure; simply add a memory card and start shooting.</p>
+		</div>
+	</div>
+}
+
